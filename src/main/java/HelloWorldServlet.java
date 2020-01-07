@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 @WebServlet(name = "HelloWorldServlet", urlPatterns = "/hello")
 public class HelloWorldServlet extends HttpServlet {
 
-    // Server the GET request to say hello
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String name = req.getParameter("name");
         if (name == null || name.equals("")) {
