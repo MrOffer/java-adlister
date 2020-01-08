@@ -11,7 +11,8 @@ public class order_form extends HttpServlet{
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
 
         res.setContentType("text/html");
         PrintWriter pw = res.getWriter();
