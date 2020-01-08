@@ -1,30 +1,49 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
-    <%@include file="partials/head.jsp"%>
+    <title>Login</title>
+    <style type="text/css">
+        <%@include file="./resources/static/css/general.css" %>
+    </style>
 </head>
 <body>
+    <%@ include file="partials/banner.jsp" %>
+    <%@ include file="partials/side_nav.jsp" %>
 
-<%@include file="partials/navbar.jsp"%>
+    <c:choose>
 
-<%
-    if (request.getMethod().equalsIgnoreCase("post")){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        if (username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("password")){
-            response.sendRedirect("/profile.jsp");
-        }
-    }
-%>
+        <c:when test="${param.username == 'admin' && param.password == 'password'}">
+            <c:redirect url="./profile.jsp">
+                <c:param name="username" value="${param.username}"></c:param>
+                <c:param name="password" value="${param.password}"></c:param>
+            </c:redirect>
 
+        </c:when>
 
-<form action="/login.jsp" method="POST">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username">
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-    <button>Login</button>
-</form>
+        <c:otherwise>
+
+                <h1>User Login</h1>
+                <h2>Username: ${param.username}</h2>
+                <h2>Password: ${param.password}</h2>
+                <form method="post" action="./login.jsp">
+
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" id="uname" name="username" required><br><br>
+
+                    <label for="pwd"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" id="pwd" name="password" required>
+                    <br><br>
+
+                    <button type="submit">Login</button>
+
+                </form>
+
+        </c:otherwise>
+
+    </c:choose>
 </body>
 </html>
+
