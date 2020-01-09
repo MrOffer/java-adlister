@@ -10,8 +10,8 @@
     </style>
 </head>
 <body>
-    <%@ include file="partials/banner.jsp" %>
-    <%@ include file="partials/side_nav.jsp" %>
+<%--    <%@ include file="partials/banner.jsp" %>--%>
+    <%@ include file="partials/navbar.jsp" %>
 
     <c:choose>
 

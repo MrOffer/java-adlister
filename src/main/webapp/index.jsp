@@ -8,8 +8,8 @@
     </style>
 </head>
 <body>
-    <%@ include file="partials/side_nav.jsp" %>
-    <%@ include file="partials/banner.jsp" %>
+    <%@ include file="partials/navbar.jsp" %>
+<%--    <%@ include file="partials/banner.jsp" %>--%>
     <c:if test="true">
         <h1>Variable names should be very descriptive</h1>
     </c:if>
