@@ -3,6 +3,8 @@ import java.util.List;
 
 public class ContactListDao implements Contacts {
 
+    // TODO: create the needed controller and view code to give the user an interface that will CRUD contacts
+
     private List<Contact> contacts = new ArrayList<>();
 
     // initially seed contacts
