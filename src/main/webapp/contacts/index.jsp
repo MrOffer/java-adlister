@@ -20,6 +20,11 @@
         </div>
     </c:forEach>
 </div>
-
+<form action="/contacts/create" method="post">
+    <input type="text" name="firstName" placeholder="First name">
+    <input type="text" name="lastName" placeholder="Last Name">
+    <input type="text" name="phoneNumber" placeholder="Phone Number">
+    <button>Add Contact</button>
+</form>
 </body>
 </html>

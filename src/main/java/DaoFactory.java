@@ -1,6 +1,6 @@
 public class DaoFactory {
     private static Ads adsDao;
-    private static Contacts ContactListDao;
+    private static Contacts ContactsDao;
 
     public static Ads getAdsDao() {
         if (adsDao == null) {
@@ -9,10 +9,10 @@ public class DaoFactory {
         return adsDao;
     }
 
-    public static Contacts getContactListDao(){
-        if (ContactListDao == null){
-            ContactListDao =  new ContactListDao();
+    public static Contacts getContactsDao(){
+        if (ContactsDao == null){
+            ContactsDao =  new ContactListDao();
         }
-    return ContactListDao;
+    return ContactsDao;
     }
 }
