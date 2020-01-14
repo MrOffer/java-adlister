@@ -2,61 +2,74 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.mysql.cj.jdbc.Driver;
-public class MySQLAdsDao implements Ads {
+import sun.security.krb5.Config;
 
+public class MYSQLAdsDao implements Ads{
     private Connection connection;
 
-    public MySQLAdsDao() {
+
+    public MYSQLAdsDao(Config Config) {
         try {
             DriverManager.registerDriver(new Driver());
-            this.connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     Config.getUrl(),
                     Config.getUsername(),
                     Config.getPassword()
             );
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Oops! Can't connect to database.", e);
         }
-
     }
+
+    private Ad getOneAd (ResultSet rs) throws SQLException {
+        return new Ad (
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description")
+        );
+    }
+
+    private List<Ad> getAllAds (ResultSet rs) throws SQLException {
+        List<Ad> allAdsArray = new ArrayList<>();
+        if (rs.next()) {
+            allAdsArray.add(getOneAd(rs));
+        }
+        return allAdsArray;
+    }
+
 
     @Override
     public List<Ad> all() {
-        List<Ad> output = new ArrayList<>();
-
-        String query = "Select * FROM ads";
-
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                output.add(
-                        new Ad(
-                                rs.getLong("id"),
-                                rs.getLong("userId"),
-                                rs.getString("title"),
-                                rs.getString("description")
-                        )
-                );
-            }
+            String readAllAds = "SELECT * FROM ads";
+            ResultSet allAds = statement.executeQuery(readAllAds);
+            return getAllAds(allAds);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Oops! Couldn't get all ads.", e);
         }
+    }
 
 
-        return output;
+    private String insertQueryString (Ad ad) {
+        return "INSERT INTO ads(title, description) VALUES "
+                + "('" + ad.getUserId() + "', '"
+                + "('" + ad.getTitle() + "', '"
+                + "('" + ad.getDescription() + "')'";
     }
 
 
     @Override
-    public void insert(Ad ad) {
+    public Long insert(Ad ad) {
         try {
             Statement statement = connection.createStatement();
-            String insertQuery = String.format("INSERT INTO ads (title, description) VALUES ('%s', '%s')");
-            statement.executeUpdate(insertQuery);
+            statement.executeUpdate(insertQueryString(ad), Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            rs.next();
+            return rs.getLong(1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Oops! Can't seem to insert an ad.", e);
         }
     }
 }
-
