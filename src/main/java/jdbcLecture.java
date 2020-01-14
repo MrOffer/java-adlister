@@ -117,7 +117,7 @@ public class jdbcLecture {
 //                brandNewAlbum.getSales(),
 //                brandNewAlbum.getGenre()
 //            );
-//
+
 //            statement.executeUpdate(insertQuery, Statement.RETURN_GENERATED_KEYS);
 //            rs = statement.getGeneratedKeys();
 //
