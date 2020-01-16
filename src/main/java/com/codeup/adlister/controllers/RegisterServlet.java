@@ -10,42 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "RegisterServlet", urlPatterns = "/register")
+@WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
-        // TODO: show the registration form
-        request.getRequestDispatcher("/WEB-INF/partials/register.jsp").forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // TODO: ensure the submitted information is valid
-        // TODO: create a new user based off of the submitted information
-        // TODO: if a user was successfully created, send them to their profile
-=======
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
->>>>>>> 89bdba8abb4eeb5dd0a05ce593729f08864bc4d4
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
-<<<<<<< HEAD
-        User userToBeSaved = new User(username, email, password);
-        long id = DaoFactory.getUsersDao().insert(userToBeSaved);
-        userToBeSaved.setId(id);
-
-        request.getSession().setAttribute("user", userToBeSaved);
-        response.sendRedirect("/profile");
-=======
         // validate input
         boolean inputHasErrors = username.isEmpty()
-            || email.isEmpty()
-            || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
+                || email.isEmpty()
+                || password.isEmpty()
+                || (! password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
             response.sendRedirect("/register");
@@ -56,6 +37,5 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(username, email, password);
         DaoFactory.getUsersDao().insert(user);
         response.sendRedirect("/login");
->>>>>>> 89bdba8abb4eeb5dd0a05ce593729f08864bc4d4
     }
 }
