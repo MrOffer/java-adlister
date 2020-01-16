@@ -12,9 +12,10 @@ public class MySQLUsersDao implements Users {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                    config.getUrl(),
+                config.getUrl(),
                     config.getUsername(),
                     config.getPassword()
+
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -56,11 +57,13 @@ public class MySQLUsersDao implements Users {
             return null;
         }
         return new User(
-                rs.getLong("id"),
-                rs.getString("username"),
-                rs.getString("email"),
-                rs.getString("password")
+
+            rs.getLong("id"),
+            rs.getString("username"),
+            rs.getString("email"),
+            rs.getString("password")
         );
     }
 
 }
+

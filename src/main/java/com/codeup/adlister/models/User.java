@@ -1,6 +1,8 @@
 package com.codeup.adlister.models;
 
-import sun.security.util.Password;
+
+import com.codeup.adlister.util.Password;
+
 
 public class User {
     private long id;
